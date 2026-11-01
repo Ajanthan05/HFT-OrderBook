@@ -33,6 +33,7 @@ enum class MsgType : char {
     OrderReplace           = 'U',
     Trade                  = 'P',
     CrossTrade             = 'Q',
+    MarketParticipantPosition = 'L'
 };
 
 struct Message {
@@ -47,6 +48,25 @@ struct Message {
     Price         price          = 0;   // add | replace | exec-with-price
     char          stock[8]       = {};  // Add/Trade/StockDirectory (space-padded)
     char          event_code     = 0;   // SystemEvent
+
+    // char mpid[4];
+    // char primary_market_maker;
+    // char market_maker_mode;
+    // char market_participant_state;
+};
+
+// ITCH FULL field need test
+struct MarketParticipantPosition {
+    std::uint16_t stock_locate{};
+    std::uint16_t tracking_number{};
+    std::uint64_t timestamp{};
+
+    char mpid[4]{};
+    char stock[8]{};
+
+    char primary_market_maker{};
+    char market_maker_mode{};
+    char market_participant_state{};
 };
 
 }  // namespace itch
